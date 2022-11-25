@@ -8,6 +8,7 @@ import dotenv from 'dotenv';
 import conectMongo from './database.js'
 
 /* Importing the routes from the routes folder. */
+import Text from './routes/Text.js'
 import Home from './routes/Home.js'
 import signupAuth from './routes/signupAuth.js';
 import signinAuth from './routes/signinAuth.js'
@@ -32,6 +33,7 @@ app.use(cors(options))
 
 /* Importing the routes from the routes folder. */
 app.use("/", Home);
+app.use(Text);
 app.use(signupAuth);
 app.use(signinAuth);
 app.use(registerUsercv);

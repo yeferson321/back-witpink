@@ -9,7 +9,7 @@ dotenv.config();
 const conectMongo = async () => {
     try {
         const db = await connect(process.env.MONGO_URT);
-        console.log(process.env.MONGO_URT)
+        console.log("webpack compiled successfully")
         console.log("Db connected to", db.connection.name)
     } catch (error) {
         console.log(error);
