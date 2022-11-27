@@ -5,7 +5,7 @@ import User from '../models/User.js'
 
 const router = Router();
 
-router.post('/v1/signin/auth', async (req, res) => {
+router.post('/v1/signin/auth', verifyTokenLogin, async (req, res) => {
 
     /* Getting the token from the header and verifying it. */
     const authorization = req.headers['authorization'];
