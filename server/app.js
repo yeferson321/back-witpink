@@ -28,8 +28,16 @@ const app = express()
 app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json())
-const options = { origin: process.env.ORIGIN, }
-app.use(cors(options))
+// const options = { origin: process.env.ORIGIN, }
+// app.use(cors(options))
+
+const corsConfig = {
+    origin: true,
+    credentials: true,
+};
+  
+app.use(cors(corsConfig));
+app.options('*', cors(corsConfig));
 
 /* Importing the routes from the routes folder. */
 app.use("/", Home);
