@@ -2,22 +2,6 @@ import { Schema, model } from "mongoose";
 
 /* Creating a schema for the database. */
 
-// Model.deleteMany()
-// Model.deleteOne()
-// Model.find()
-// Model.findById()
-// Model.findByIdAndDelete()
-// Model.findByIdAndRemove()
-// Model.findByIdAndUpdate()
-// Model.findOne()
-// Model.findOneAndDelete()
-// Model.findOneAndRemove()
-// Model.findOneAndReplace()
-// Model.findOneAndUpdate()
-// Model.replaceOne()
-// Model.updateMany()
-// Model.updateOne()
-
 const usersSchema = new Schema({
     name: {
         type: String,
@@ -65,6 +49,7 @@ const usersSchema = new Schema({
     },
     userid: { 
         type: Schema.Types.ObjectId, 
+        required: true,
         ref: 'User',
         index: true,
         unique: true

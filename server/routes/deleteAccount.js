@@ -2,20 +2,23 @@ import { Router } from 'express'
 import jwt from 'jsonwebtoken';
 import verifyToken from './verifyToken.js';
 import Usercv from '../models/Uservc.js'
+import User from '../models/User.js'
 
 const router = Router();
 
-router.get('/v1/datos/usercv', verifyToken, async (req, res) => {
+router.delete('/v1/delete/account', verifyToken, async (req, res) => {
 
-    /* Getting the token from the header and verifying it. */
+    const data = req.body
+
+    // /* Getting the token from the header and verifying it. */
     const authorization = req.headers['authorization'];
     const token = authorization.replace('Bearer ', '');
     const decoded = jwt.verify(token, process.env.KEY_TOKEN_AUTH);
 
-    /* Trying to find the user in the database and if it is not found, it will return an error. */
     try {
-        const datacv = await Usercv.findOne({ userid: decoded.id })
-        res.status(200).send({ auth: true, name: "UserIsAuthorized", message: datacv });
+        await User.findOneAndDelete({ "_id": decoded.id })
+        await Usercv.findOneAndDelete({ "userid": decoded.id })
+        res.status(200).send({ auth: true, name: "UserIsAuthorized", message: "Cuenta eliminada" });
     } catch (error) {
         res.status(400).send({ auth: false, name: "TryAgain", message: "Intente de nuevo" });
     }

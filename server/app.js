@@ -5,15 +5,17 @@ import cors from "cors";
 import dotenv from 'dotenv';
 
 /* Importing the database.js file. */
-import conectMongo from './database.js'
+import conectMongo from './database.js';
 
 /* Importing the routes from the routes folder. */
-import Text from './routes/Text.js'
-import Home from './routes/Home.js'
+import Text from './routes/Text.js';
+import Home from './routes/Home.js';
 import signupAuth from './routes/signupAuth.js';
-import signinAuth from './routes/signinAuth.js'
-import registerUsercv from './routes/registerUsercv.js'
-import getDataUsercv from './routes/getDataUsercv.js'
+import signinAuth from './routes/signinAuth.js';
+import registerUsercv from './routes/registerUsercv.js';
+import getDataUsercv from './routes/getDataUsercv.js';
+import updateDataUsercv from './routes/updateDataUsercv.js';
+import deleteAccount from './routes/deleteAccount.js';
 
 /* Loading the environment variables from the .env file. */
 dotenv.config();
@@ -38,5 +40,7 @@ app.use(signupAuth);
 app.use(signinAuth);
 app.use(registerUsercv);
 app.use(getDataUsercv);
+app.use(updateDataUsercv);
+app.use(deleteAccount);
 
 export default app

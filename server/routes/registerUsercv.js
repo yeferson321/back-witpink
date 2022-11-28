@@ -15,6 +15,8 @@ router.post('/v1/register/usercv', verifyToken, async (req, res) => {
     const token = authorization.replace('Bearer ', '');
     const decoded = jwt.verify(token, process.env.KEY_TOKEN_AUTH);
 
+
+    console.log(decoded)
     /* Saving the data in the database. */
     try {
         await User.updateOne({ accounttype: accounttype })
@@ -22,6 +24,8 @@ router.post('/v1/register/usercv', verifyToken, async (req, res) => {
         await newUser.save()
         res.status(200).send({ auth: true, name: "UserIsAuthorized", message: token });
     } catch (error) {
+        console.log(error)
+
         res.status(400).send({ auth: false, name: "TryAgain", message: "Intente de nuevo" });
     }
 
