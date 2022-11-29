@@ -15,8 +15,8 @@ router.put('/v1/update/datos/usercv', verifyToken, async (req, res) => {
     const decoded = jwt.verify(token, process.env.KEY_TOKEN_AUTH);
 
     try {
-            await  Usercv.findOneAndUpdate({"userid": decoded.id}, data)
-            res.status(200).send({ auth: true, name: "UserIsAuthorized", message: "Datos actualizados" });
+        await Usercv.findOneAndUpdate({ "userid": decoded.id }, data)
+        res.status(200).send({ auth: true, name: "UserIsAuthorized", message: "Datos actualizados" });
     } catch (error) {
         res.status(400).send({ auth: false, name: "TryAgain", message: "Intente de nuevo" });
     }

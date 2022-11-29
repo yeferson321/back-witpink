@@ -2,7 +2,6 @@ import { Router } from 'express'
 import jwt, { decode } from 'jsonwebtoken';
 import verifyTokenLogin from './verifyTokenJwt.js';
 import User from '../models/User.js'
-import nodemailer from 'nodemailer';
 
 const router = Router();
 
@@ -27,32 +26,6 @@ router.post('/v1/signup/auth', verifyTokenLogin, async (req, res) => {
             const token = jwt.sign({ id: newUser._id, email: newUser.email, cypher: process.env.CYPHER, cyphertwo: process.env.CYPHERTWO }, process.env.KEY_TOKEN_AUTH, { expiresIn: '30m' })
             await newUser.save()
             res.status(200).send({ auth: true, newuser: true, name: "UserIsAuthorized", message: token, pinture: decoded.picture });
-
-            const button = 'https://witpink.vercel.app/'
-
-            const transporter = nodemailer.createTransport({
-                host: "smtp.gmail.com",
-                port: 587,
-                secure: false, // true for 465, false for other ports
-                auth: {
-                    user: process.env.EMAILMAILER, // generated ethereal user
-                    pass: process.env.PASSWORDMAILER, // generated ethereal password
-                },
-            });
-
-            const info = await transporter.sendMail({
-                from: '"WitPink " <helloworldmanage@gmail.com>', // sender address
-                to: decoded.email, // list of receivers
-                subject: "Bienvenido a WitPink", // Subject line
-                text: "El futuro es hoy!", // plain text body
-                html:
-                    `<div style='text-align: center; padding: 0% 14%;'>
-                        <h3 style='margin-bottom: 3%; color: gray;' >Bienvenido a WitPink</h3><br> 
-                        <h4 style='margin-bottom: 3%; color: gray;' >Nuestro algoritmo de selección automática de candidatos analiza los requisitos de su trabajo y tiene en cuenta cada una de las habilidades y actitudes del aspirante para hacer más probable contratar al candidato deseado.</h4><br> 
-                        <a href="${button}"><button style='background-color: #6366f1; color: #fff;  border-color: #ffffff00; padding: 12px 35px; font-size: 15px; border-radius: 10px;' type="submit">Ir a la plataforma</button></a>
-                    <div/>`,
-            });
-
         }
     } catch (error) {
         console.log(error)
