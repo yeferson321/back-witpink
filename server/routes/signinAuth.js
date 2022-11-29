@@ -18,7 +18,7 @@ router.post('/v1/signin/auth', verifyTokenLogin, async (req, res) => {
 
         if (user) {
             const token = jwt.sign({ id: user._id, email: user.email, cypher: process.env.CYPHER, cyphertwo: process.env.CYPHERTWO }, process.env.KEY_TOKEN_AUTH, { expiresIn: '30m' })
-            res.status(200).send({ auth: true, name: "UserIsAuthorized", message: token, pinture: decoded.pinture });
+            res.status(200).send({ auth: true, name: "UserIsAuthorized", message: token, pinture: decoded.picture });
         } else {
             res.status(401).send({ auth: false, name: "UserNotFound", message: "Usuario no encontrado" });
         }
