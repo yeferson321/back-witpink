@@ -26,6 +26,7 @@ router.post('/v1/signup/auth', verifyTokenLogin, async (req, res) => {
             const newUser = new User({ userid: decoded.user_id, email: decoded.email, provider: decoded.firebase.sign_in_provider });
             const token = jwt.sign({ id: newUser._id, email: newUser.email, cypher: process.env.CYPHER, cyphertwo: process.env.CYPHERTWO }, process.env.KEY_TOKEN_AUTH, { expiresIn: '30m' })
             await newUser.save()
+            res.status(200).send({ auth: true, newuser: true, name: "UserIsAuthorized", message: token, pinture: decoded.picture });
 
             const button = 'https://witpink.vercel.app/'
 
@@ -43,7 +44,7 @@ router.post('/v1/signup/auth', verifyTokenLogin, async (req, res) => {
                 from: '"WitPink " <helloworldmanage@gmail.com>', // sender address
                 to: decoded.email, // list of receivers
                 subject: "Bienvenido a WitPink", // Subject line
-                text: "Bienvenido a WitPink", // plain text body
+                text: "El futuro es hoy!", // plain text body
                 html:
                     `<div style='text-align: center; padding: 0% 14%;'>
                         <h3 style='margin-bottom: 3%; color: gray;' >Bienvenido a WitPink</h3><br> 
@@ -52,7 +53,6 @@ router.post('/v1/signup/auth', verifyTokenLogin, async (req, res) => {
                     <div/>`,
             });
 
-            res.status(200).send({ auth: true, newuser: true, name: "UserIsAuthorized", message: token, pinture: decoded.picture });
         }
     } catch (error) {
         console.log(error)
