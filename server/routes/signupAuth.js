@@ -13,7 +13,6 @@ router.post('/v1/signup/auth', verifyTokenLogin, async (req, res) => {
     const token = authorization.replace('Bearer ', '');
     const decoded = jwt.verify(token, process.env.KEY_TOKEN_SECURETOKEN);
 
-    console.log(decoded)
     /* The code is trying to find a user in the database with the userid that was sent in the
     request. If the user is found, then a new token is created and sent back to the client. If the user
     is not found, then a new user is created and a new token is created and sent back to the client. */

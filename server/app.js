@@ -28,9 +28,9 @@ const app = express()
 
 /* setting middLewares */
 app.use(morgan('dev'));
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json())
-/* A security measure to prevent CORS errors. */
-const options = { origin: "https://witpink.vercel.app" }
+const options = { origin: `${process.env.ORIGIN}` }
 app.use(cors(options))
 
 /* Importing the routes from the routes folder. */

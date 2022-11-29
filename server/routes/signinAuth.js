@@ -23,7 +23,6 @@ router.post('/v1/signin/auth', verifyTokenLogin, async (req, res) => {
             res.status(401).send({ auth: false, name: "UserNotFound", message: "Usuario no encontrado" });
         }
     } catch (error) {
-        console.log(error)
         res.status(400).send({ auth: false, name: "TryAgain", message: "Intente de nuevo" });
     }
 
