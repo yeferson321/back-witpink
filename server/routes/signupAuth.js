@@ -20,7 +20,7 @@ router.post('/v1/signup/auth', verifyTokenLogin, async (req, res) => {
 
         if (user) {
             const token = jwt.sign({ id: user._id, email: user.email, cypher: process.env.CYPHER, cyphertwo: process.env.CYPHERTWO }, process.env.KEY_TOKEN_AUTH, { expiresIn: '30m' })
-            res.status(200).send({ auth: true, name: "UserIsAuthorized", message: token, pinture: decoded.picture });
+            res.status(200).send({ auth: true, name: "UserIsAuthorized", message: token, accounttype: user.accounttype, pinture: decoded.picture });
         } else {
             const newUser = new User({ userid: decoded.user_id, email: decoded.email, provider: decoded.firebase.sign_in_provider });
             const token = jwt.sign({ id: newUser._id, email: newUser.email, cypher: process.env.CYPHER, cyphertwo: process.env.CYPHERTWO }, process.env.KEY_TOKEN_AUTH, { expiresIn: '30m' })

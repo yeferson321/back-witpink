@@ -16,6 +16,11 @@ import registerUsercv from './routes/registerUsercv.js';
 import getDataUsercv from './routes/getDataUsercv.js';
 import updateDataUsercv from './routes/updateDataUsercv.js';
 import deleteAccount from './routes/deleteAccount.js';
+import registerBusinesscv from './routes/registerBusinesscv.js';
+import getDataBusinesscv from './routes/getDataBusinesscv.js';
+import deleteAccountBusiness from './routes/deleteAccountBusiness.js';
+import registerJobs from './routes/registerJobs.js';
+import getDataJobs from './routes/getDataJobs.js';
 
 /* Loading the environment variables from the .env file. */
 dotenv.config();
@@ -42,5 +47,10 @@ app.use(registerUsercv);
 app.use(getDataUsercv);
 app.use(updateDataUsercv);
 app.use(deleteAccount);
+app.use(registerBusinesscv);
+app.use(getDataBusinesscv);
+app.use(deleteAccountBusiness);
+app.use(registerJobs);
+app.use(getDataJobs);
 
 export default app

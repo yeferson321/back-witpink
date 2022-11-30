@@ -1,15 +1,15 @@
 import { Router } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt, { decode } from 'jsonwebtoken';
 import verifyToken from './verifyToken.js';
-import Usercv from '../models/Uservc.js';
+import Businesscv from '../models/Businesscv.js';
 import User from '../models/User.js';
 import nodemailer from 'nodemailer';
 
 const router = Router();
 
-router.post('/v1/register/usercv', verifyToken, async (req, res, next) => {
+router.post('/v1/register/bussinesscv', verifyToken, async (req, res, next) => {
 
-    const { accounttype, name, prefijo, telefono, ocupacion, conocimientos, habilidades, nivel, idiomas, interes, presentacion } = req.body
+    const { accounttype, name, categoria, correo, ubicacion, numero, descripcion } = req.body
 
     /* Getting the token from the header and verifying it. */
     const authorization = req.headers['authorization'];
@@ -19,7 +19,7 @@ router.post('/v1/register/usercv', verifyToken, async (req, res, next) => {
     /* Saving the data in the database. */
     try {
         await User.findByIdAndUpdate({ "_id": decoded.id }, { accounttype: accounttype })
-        const newUser = new Usercv({ name: name, prefijo: prefijo, telefono: telefono, ocupacion: ocupacion, conocimientos: conocimientos, habilidades: habilidades, nivel: nivel, idiomas: idiomas, interes: interes, presentacion: presentacion, userid: decoded.id });
+        const newUser = new Businesscv({ name: name, categoria: categoria, correo: correo, ubicacion: ubicacion, numero: numero, descripcion: descripcion, userid: decoded.id });
         await newUser.save()
         res.status(200).send({ auth: true, name: "UserIsAuthorized", message: token });
 
@@ -50,6 +50,7 @@ router.post('/v1/register/usercv', verifyToken, async (req, res, next) => {
                 <div/>`,
         });
     } catch (error) {
+        console.log(error)
         res.status(400).send({ auth: false, name: "TryAgain", message: "Intente de nuevo" });
     }
 

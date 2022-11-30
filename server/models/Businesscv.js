@@ -3,40 +3,43 @@ import { Schema, model } from "mongoose";
 /* Creating a schema for the database. */
 
 const usersSchema = new Schema({
-    tiempo: {
+    name: {
         type: String,
-        required: true,
-    },
-    empresa: {
-        type: String,
-        required: true
-    },
-    cargo: {
-        type: String,
-        required: true
-    },
-    salario: {
-        type: Number,
         required: true,
         lowercase: true,
         trim: true
     },
-    habilidades: {
-        type: Object,
+    categoria: {
+        type: String,
+        required: true
+    },
+    correo: {
+        type: String,
+        required: true,
+        trim: true
+    },
+    ubicacion: {
+        type: String,
+        required: true
+    },
+    numero: {
+        type: String,
         required: true
     },
     descripcion: {
         type: String,
         required: true
     },
-    jobsid: { 
+    userid: { 
         type: Schema.Types.ObjectId, 
         required: true,
-        ref: 'User'
+        ref: 'User',
+        index: true,
+        unique: true
     }
 },{
     timestamps: false,
     versionKey: false
 });
 
-export default model("Jobs", usersSchema)
+export default model("Businesscv", usersSchema)

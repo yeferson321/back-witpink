@@ -10,6 +10,7 @@ function verifyTokenLogin(req, res, next) {
     if (token) {
         jwt.verify(token, process.env.KEY_TOKEN_SECURETOKEN, function (err, decoded) {
             if (err) {
+                console.log(err)
                 res.status(401).send({ auth: false, name: err.name, message: err.message });
             } else if (decoded.iss === process.env.ISS && decoded.aud === process.env.AUD) {
                 next();
